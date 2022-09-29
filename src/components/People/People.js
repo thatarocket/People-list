@@ -1,16 +1,19 @@
+import TableRow from '@mui/material/TableRow';
+import TableCell from '@mui/material/TableCell';
 import './People.css';
 
 function People(props) {
     
     return (
-        <tr className="people">
-            <td>
+        <TableRow>
+            <TableCell>
                 {props.name}
-            </td>   
-            <td>
+            </TableCell>
+            <TableCell>
                 {props.age}
-            </td>         
-        </tr>
+            </TableCell>
+        </TableRow>
+        
     );
 }    
 export default People;
