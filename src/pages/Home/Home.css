@@ -1,0 +1,24 @@
+body {
+    margin: 40px;
+}
+
+/* Initial input and button */
+
+.titleList {
+    color: blueviolet;
+}
+
+.initialInputs, .btnAddPeople {
+    margin: 20px;
+}
+.btnAddPeople {
+    color: blueviolet;
+    border-color: blueviolet;
+}
+
+
+/* Table */
+.peopleTable {
+  display: inline;
+}
+
