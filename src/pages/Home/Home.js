@@ -16,13 +16,15 @@ function Home() {
     }
     
     return (
-        <div>
-            <div className="home">
+        <div className="home">
+            <div>
+                <h1 className='titleList'>Lista de pessoas</h1>
                 <input type="text" placeholder="nome" onChange={event => setName(event.target.value)}></input>
                 <input type="text" placeholder="idade" onChange={event => setAge(event.target.value)}></input>
                 <button onClick={addPerson}>Adicionar</button>  
-                
-                <table className='peopleClass'>
+            </div>
+            <div className='people'>
+                <table className='peopleTable'>
                     <thead>
                         <tr>
                             <th>Nome</th>
