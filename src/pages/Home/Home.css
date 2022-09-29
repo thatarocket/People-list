@@ -2,7 +2,7 @@ body {
     margin: 40px;
 }
 
-/* Initial input and button */
+/* Initial title, input and button */
 
 .titleList {
     color: blueviolet;
@@ -11,11 +11,16 @@ body {
 .initialInputs, .btnAddPeople {
     margin: 20px;
 }
+
 .btnAddPeople {
     color: blueviolet;
     border-color: blueviolet;
 }
 
+.btnAddPeople:hover {
+    color: blueviolet;
+    border-color: blueviolet;
+}
 
 /* Table */
 .peopleTable {
