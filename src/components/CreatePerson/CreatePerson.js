@@ -27,13 +27,34 @@ function CreatePerson(props) {
                 />
             </Grid>
             <Grid item xs={4}>
-                <Button 
-                    size="large" 
-                    className="btnAddPeople" 
-                    variant="outlined" 
-                    onClick={props.addPerson}>
-                    Adicionar
-                </Button>                
+                {!props.editing && (
+                    <Button 
+                        size="large" 
+                        className="btnAddPeople" 
+                        variant="outlined" 
+                        onClick={props.addPerson}>
+                        Adicionar
+                    </Button>   
+                )}   
+                {props.editing && (
+                    <>
+                        <Button 
+                            size="large" 
+                            className="btnAddPeople" 
+                            variant="outlined" 
+                            onClick={props.cancelEdit}>
+                            Cancelar
+                        </Button>   
+                        <Button 
+                            size="large" 
+                            className="btnAddPeople" 
+                            variant="outlined" 
+                            onClick={props.editPerson}>
+                            Salvar
+                        </Button> 
+                    </>
+                      
+                )}             
             </Grid>
         </Grid>
     );

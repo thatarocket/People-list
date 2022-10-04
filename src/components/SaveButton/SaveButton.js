@@ -8,7 +8,6 @@ const SaveButton = (props) => {
    
     return (
         <>  
-            {console.log("entrou no savebutton")}
             <Grid container>
                 <Grid item xs={4}>
                     <TextField
