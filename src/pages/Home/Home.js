@@ -1,75 +1,105 @@
-import React, { useState } from "react";
-import People from '../../components/People/People';
-import Button from '@mui/material/Button';
-import TextField from '@mui/material/TextField';
-import Table from '@mui/material/Table';
-import TableBody from '@mui/material/TableBody';
-import TableCell from '@mui/material/TableCell';
-import TableHead from '@mui/material/TableHead';
-import TableRow from '@mui/material/TableRow';
+import React, { useState, useEffect } from "react";
+import Header from '../../components/Header/Header';
+import CreatePerson from "../../components/CreatePerson/CreatePerson";
+import TablePerson from "../../components/TablePerson/TablePerson";
+// import Box from '@mui/material/Box';
+// import Card from '@mui/material/Card';
+// import CardActions from '@mui/material/CardActions';
+// import CardContent from '@mui/material/CardContent';
 
 import './Home.css';
 
-function Home() {
+const Home = () => {
     const[people,setPeople] = useState([]);
     const[name,setName] = useState("");
     const[age,setAge] = useState(0);
-    
-    function addPerson() {
+    const[id,setId] = useState(0);
+    const[editing,setEditing] = useState(false);
+
+    useEffect(() => {
+        console.log('people -> ', people);
+    }, [people]);
+
+    const handleDelete = (row) => {
+        console.log("handleDelete",JSON.stringify(row.id));
+        let newPeople = people.filter((person) => person.id !== row.id);
+        console.log("newPeople",newPeople);     
+        setPeople(newPeople);
+    }
+
+    const handleEdit = (row) => {
+        console.log("handleEdit",JSON.stringify(row));
+        setId(row.id);
+        setName(row.name);
+        setAge(row.age);    
+        setEditing(true);
+    }  
+
+    const cancelEdit = () => {
+        setEditing(false);
+        setName("");
+        setAge(0);
+        setName("");
+        setId(0);        
+    }
+
+    function addPerson() {        
         const newPerson = {
+            id:people.length,
             name,
             age,
         };
-        setPeople(prevState => [...prevState, newPerson]);
+        const newPeople = people.map((person,index) => {return {...person,id:index}});
+        setPeople([...newPeople, newPerson]);
+
+        setName("");
+        setAge(0);
+        setId(0);  
+        
+    }
+
+    function editPerson() {
+        const newPeople = people.map((person) => {
+            if(person.id === id) {
+                return {
+                    ...person,
+                    name,
+                    age
+                }
+            }
+            else {         
+                return person;
+            }
+        });
+        setPeople(newPeople);
+        setName("");
+        setAge(0);
+        setId(0);
+        setEditing(false);  
     }
     
     return (
-        <div className="home">            
-            <div>
-                <h1 className='titleList'>Lista de pessoas</h1>
-                <TextField
-                    id="outlined-basic"
-                    className='initialInputs'
-                    label="Nome"
-                    type="text"
-                    onChange={event => setName(event.target.value)}
-                />
-                <TextField
-                    id="outlined-number"
-                    className='initialInputs'
-                    label="Idade"
-                    type="number"
-                    onChange={event => setAge(event.target.value)}
-                />
-                <Button className="btnAddPeople" variant="outlined" onClick={addPerson}>Adicionar</Button>  
-            </div>
-            <div className='people'> 
-                <Table className='peopleTable'>
-                    <TableHead>
-                        <TableRow>
-                            <TableCell>Nome</TableCell>
-                            <TableCell>Idade</TableCell>
-                            <TableCell>Ação</TableCell>
-                        </TableRow>
-                    </TableHead>
-                    <TableBody>
-                        {
-                            people.map((person, index) => (
-                                    <People 
-                                        key={index}
-                                        name={person.name}
-                                        age={person.age}
-                                    />
-                                ))
-                        }
-                    </TableBody>
-                    
-                </Table>                     
-            </div>
-        </div>
+        <>
+            <Header/>
+            <CreatePerson
+                namePerson={name}
+                agePerson={age}
+                configName={setName}
+                configAge={setAge}
+                addPerson = {addPerson}
+                editPerson={editPerson}
+                editing={editing}
+                cancelEdit={cancelEdit}
+            />
+            <TablePerson
+                rows = {people}  
+                handleEdit = {handleEdit} 
+                handleDelete = {handleDelete}              
+            />  
+        </>
     );
-
+        
 }
-            
+    
 export default Home;
-            
+    
