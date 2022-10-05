@@ -2,11 +2,8 @@ import React, { useState, useEffect } from "react";
 import Header from '../../components/Header/Header';
 import CreatePerson from "../../components/CreatePerson/CreatePerson";
 import TablePerson from "../../components/TablePerson/TablePerson";
-// import Box from '@mui/material/Box';
-// import Card from '@mui/material/Card';
-// import CardActions from '@mui/material/CardActions';
+import Card from '@mui/material/Card';
 // import CardContent from '@mui/material/CardContent';
-
 import './Home.css';
 
 const Home = () => {
@@ -15,6 +12,7 @@ const Home = () => {
     const[age,setAge] = useState(0);
     const[id,setId] = useState(0);
     const[editing,setEditing] = useState(false);
+    const [open, setOpen] = useState(false);
 
     useEffect(() => {
         console.log('people -> ', people);
@@ -25,6 +23,15 @@ const Home = () => {
         let newPeople = people.filter((person) => person.id !== row.id);
         console.log("newPeople",newPeople);     
         setPeople(newPeople);
+        setOpen(false);
+    }
+
+    const handleOpen = () => {
+        setOpen(true); 
+    }
+
+    const handleClose = () => {
+        setOpen(false);
     }
 
     const handleEdit = (row) => {
@@ -39,7 +46,6 @@ const Home = () => {
         setEditing(false);
         setName("");
         setAge(0);
-        setName("");
         setId(0);        
     }
 
@@ -51,7 +57,6 @@ const Home = () => {
         };
         const newPeople = people.map((person,index) => {return {...person,id:index}});
         setPeople([...newPeople, newPerson]);
-
         setName("");
         setAge(0);
         setId(0);  
@@ -80,22 +85,31 @@ const Home = () => {
     
     return (
         <>
-            <Header/>
-            <CreatePerson
-                namePerson={name}
-                agePerson={age}
-                configName={setName}
-                configAge={setAge}
-                addPerson = {addPerson}
-                editPerson={editPerson}
-                editing={editing}
-                cancelEdit={cancelEdit}
-            />
-            <TablePerson
-                rows = {people}  
-                handleEdit = {handleEdit} 
-                handleDelete = {handleDelete}              
-            />  
+            <Card>
+                <Header/>
+            </Card>
+            <Card className="cardPerson">                
+                <CreatePerson 
+                    namePerson={name}
+                    agePerson={age}
+                    configName={setName}
+                    configAge={setAge}
+                    addPerson = {addPerson}
+                    editPerson={editPerson}
+                    editing={editing}
+                    cancelEdit={cancelEdit}
+                />
+            </Card>
+            <Card>
+                <TablePerson
+                    rows = {people}  
+                    handleEdit = {handleEdit} 
+                    handleDelete = {handleDelete}  
+                    handleOpen = {handleOpen}
+                    handleClose = {handleClose}                 
+                    open = {open}
+                />  
+            </Card>  
         </>
     );
         

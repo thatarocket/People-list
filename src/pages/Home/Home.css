@@ -2,11 +2,13 @@ body {
     margin: 40px;
 }
 
-/* Initial title, input and button */
+/* Header */
 
 .titleList {
     color: blueviolet;
 }
+
+/* Create Person */
 
 .initialInputs, .btnAddPeople {
     margin: 20px;
@@ -22,8 +24,10 @@ body {
     border-color: blueviolet;
 }
 
-/* Table */
-.peopleTable {
-  display: inline;
+.cardPerson {
+    background-color: red;
 }
 
+.MuiCard-root .carPerson {
+    background-color: green;
+}

@@ -13,13 +13,23 @@ function TablePerson(props) {
         },
         { field: 'action', headerName: 'Ação', width: 250,
             renderCell: ({row}) => {
-                return (() => ActionButtons({row,handleEdit:props.handleEdit,handleDelete:props.handleDelete}))();
+                return (() => ActionButtons(
+                    {
+                        row,
+                        handleEdit:props.handleEdit,
+                        handleDelete:props.handleDelete,
+                        handleOpen:props.handleOpen,
+                        handleClose:props.handleClose,                        
+                        open:props.open
+                    }
+                ))();
             }
         },
     ];    
 
     return(
-        <>
+        <>  
+            <br></br>
             <Box sx={{ height: 400, width: '100%' }}>
                 <DataGrid
                     rows={props.rows}
